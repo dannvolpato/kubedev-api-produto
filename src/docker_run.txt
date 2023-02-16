@@ -1,0 +1,4 @@
+docker volume create mongo-vol
+docker network create net
+docker run -d -p 27017:27017 --name db  --network net -v mongo-vol:/data/db -e MONGO_INITDB_ROOT_USERNAME=mongouser -e MONGO_INITDB_ROOT_PASSWORD=mongopwd mongo:4.4.3
+docker run -d -p 8080:8080   --name api --network net -e MONGODB_URI=mongodb://mongouser:mongopwd@db:27017/admin danielvolpato/api-produto:v1
